@@ -34,29 +34,26 @@ public class ControladorMundial implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-     
         if (e.getSource() == vista.btnRegistrar) {
             try {
-                // Leemos los datos de la vista (Solo usamos los que necesitamos para Ciclista)
                 String nombre = vista.txtNombre.getText();
                 String pais = vista.txtPais.getText();
                 int ranking = Integer.parseInt(vista.txtRanking.getText());
 
-                // Creamos el nuevo Ciclista
+                // Ahora usamos Ciclista (la subclase con sobrecarga)
                 Ciclista nuevoCiclista = new Ciclista(nombre, pais, ranking);
                 
-                // Lo enviamos al Gestor (Polimorfismo en acción)
+                // Usamos el nuevo método del Gestor
                 modelo.registrarParticipante(nuevoCiclista);
                 
                 JOptionPane.showMessageDialog(vista, "Ciclista registrado con éxito");
                 
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(vista, "Error: El ranking debe ser un número entero.");
+                JOptionPane.showMessageDialog(vista, "Error: El ranking debe ser un número.");
             }
         }
         
         if (e.getSource() == vista.btnMostrarDatos) {
-            // Mostramos los datos con el nuevo método
             String resultados = modelo.obtenerDatosParticipantes();
             vista.txtAreaResultados.setText(resultados);
         }
